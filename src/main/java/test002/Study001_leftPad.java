@@ -16,10 +16,10 @@ public class Study001_leftPad {
 	@Data
 	@AllArgsConstructor
 	public static class TestItem {
-		String _기대_결과;
 		String args1;
 		public int args2;
 		String args3;
+		String _기대_결과;
 	}
 
 
@@ -27,25 +27,25 @@ public class Study001_leftPad {
 	public static void main(String[] args) {
 		// 테스트 데이터 생성
 		List<TestItem> testDataList = Arrays.asList(
-			  new TestItem("00123", "123", 5, "0")
-			, new TestItem("00123", "123", 5, "00")
-			, new TestItem("00123", "123", 5, "000")
-			, new TestItem("0대한민국", "대한민국", 5, "00")
+			  new TestItem("123", 5, "0", "00123")
+			, new TestItem("123", 5, "00", "00123")
+			, new TestItem("123", 5, "000", "00123")
+			, new TestItem("대한민국", 5, "00" , "0대한민국")
 		);
+
+
 
 		for (TestItem item : testDataList) {
 			//false만 출력할것
 			String result = leftPad(item.args1, item.args2, item.args3);
-			//System.out.println
-			String testResult = item._기대_결과 == result ? "OK" : "!!!!!!!오류!!!!!";
-			System.out.println(item._기대_결과 +","+result );
-			if (item._기대_결과 != result) {
-				System.out.println("?");
-			}
+
+			String testResult = item._기대_결과.equals(result) ? "OK" : "!!!!!!!오류!!!!!";
+
+
 			System.out.println(String.format("leftPad(\"%s\", \"%s\" , \"%s\" ) == %s ------------- %s", item.args1, item.args2, item.args3, result, testResult));
 		}
 
-		
+
 
 
 
@@ -66,21 +66,21 @@ public class Study001_leftPad {
 		} else if (str.length() > size) { //str의 길이가 n보다 클 때 n개만큼만 잘라서 리턴
 			return str.substring(0,size);
 		} else {							           // leftPad 적용사례
-//			int _체워야할_길이 = size - result.length();  // size - 문자열의 길이
-//			String _결과값 = "";
-//			int x = _체워야할_길이 % padString.length(); //잘리는 길이 (나머지)
-//			int y = _체워야할_길이 / padString.length(); //반복되는 횟수
-//
-//			for (int i = 0; i < y; i++) {
-//				_결과값 += padString; // leftPad
-//			}
-//			_결과값 += padString.substring(0,x);
-//			_결과값 += str;
-//			return _결과값;
-
 			int _체워야할_길이 = size - result.length();  // size - 문자열의 길이
-			int addCount = (int)Math.ceil((double)_체워야할_길이 / padString.length()); //반복되는 횟수 2 /3 =
-			return padString.repeat(addCount).substring(0,_체워야할_길이) + str;
+			String _결과값 = "";
+			int x = _체워야할_길이 % padString.length(); //잘리는 길이 (나머지)
+			int y = _체워야할_길이 / padString.length(); //반복되는 횟수
+
+			for (int i = 0; i < y; i++) {
+				_결과값 += padString; // leftPad
+			}
+			_결과값 += padString.substring(0,x);
+			_결과값 += str;
+			return _결과값;
+
+//			int _체워야할_길이 = size - result.length();  // size - 문자열의 길이
+//			int addCount = (int)Math.ceil((double)_체워야할_길이 / padString.length()); //반복되는 횟수 2 /3 =
+//			return padString.repeat(addCount).substring(0,_체워야할_길이) + str;
 
 		}
 
